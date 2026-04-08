@@ -1,0 +1,10 @@
+#!/usr/bin/php
+<?php
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+use app\database\Database;
+use app\Application;
+
+Database::connect();
+(new Application())->run();
