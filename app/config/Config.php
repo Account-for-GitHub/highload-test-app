@@ -36,10 +36,21 @@ class Config
         return json_decode($json, true);
     }
 
+    /**
+     * @return array<string, string>
+     */
+    private static function getOptionsConfig(): array
+    {
+        return getopt('', ['url::', 'quantity::']);
+    }
+
     public static function getConfig(): ConfigDTO
     {
         if (is_null(self::$config)) {
-            $config = self::getFileConfig();
+            $fileConfig = self::getFileConfig();
+            $optionsConfig = self::getOptionsConfig();
+
+            $config = array_merge($fileConfig, $optionsConfig);
 
             self::$config = new ConfigDTO(
                 url: $config[self::URL_KEY] ?? self::DEFAULT_URL,
