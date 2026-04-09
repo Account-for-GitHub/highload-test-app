@@ -8,7 +8,7 @@ use app\requests\scenarios\SimpleScenario;
 
 class Scenario
 {
-    function __construct(private readonly IScenarioStrategy $scenario = new SimpleScenario())
+    function __construct(protected IScenarioStrategy $scenario = new SimpleScenario())
     {
     }
 
@@ -25,7 +25,7 @@ class Scenario
         Response::create([
             'request_id' => $this->getRequestId(),
             'status' => $response->status,
-            'response' => $response->responseJson,
+            'response' => $response->response,
         ]);
     }
 }

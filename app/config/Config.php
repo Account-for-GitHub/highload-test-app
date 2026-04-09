@@ -3,31 +3,43 @@
 namespace app\config;
 
 use app\dto\ConfigDTO;
+use Exception;
 
 class Config
 {
-    private const DEFAULT_URL = 'http://localhost';
-    private const DEFAULT_QUANTITY_OF_REQUESTS = 10;
-    private const DEFAULT_REQUEST = "{}";
+    public const DEFAULT_URL = 'http://localhost';
+    public const DEFAULT_QUANTITY_OF_REQUESTS = 10;
+    public const DEFAULT_REQUEST = "{}";
 
-    private const CONFIG_FILE_PATH = "app/config/highload-test-config.json";
+    protected const CONFIG_FILE_PATH = __DIR__ . "/highload-test-config.json";
+    protected static string $configFilePath = self::CONFIG_FILE_PATH;
 
-    private const URL_KEY = "url";
-    private const QUANTITY_KEY = "quantity";
-    private const REQUEST_KEY = "request";
+    protected const URL_KEY = "url";
+    protected const QUANTITY_KEY = "quantity";
+    protected const REQUEST_KEY = "request";
 
-    public static ?ConfigDTO $config = null;
+    protected static ?ConfigDTO $config = null;
 
-    private function __construct()
+    protected function __construct()
     {
+    }
+
+    public static function setTestConfig(string $testConfigFilePath): void {
+        self::$configFilePath = $testConfigFilePath;
+        self::$config = null;
     }
 
     /**
      * @return array<string, string|int|null>
+     * @throws Exception
      */
-    private static function getFileConfig(): array
+    protected static function getFileConfig(): array
     {
-        $json = file_get_contents(self::CONFIG_FILE_PATH);
+        if (! is_file(self::$configFilePath)) {
+            throw new Exception('Config file not found!');
+        }
+
+        $json = file_get_contents(self::$configFilePath);
 
         if ($json === false) {
             return [];
@@ -39,7 +51,7 @@ class Config
     /**
      * @return array<string, string>
      */
-    private static function getOptionsConfig(): array
+    protected static function getOptionsConfig(): array
     {
         return getopt('', ['url::', 'quantity::']);
     }
@@ -52,10 +64,14 @@ class Config
 
             $config = array_merge($fileConfig, $optionsConfig);
 
+            $requestJson = isset($config[self::REQUEST_KEY])
+                ? json_encode($config[self::REQUEST_KEY], JSON_UNESCAPED_UNICODE)
+                : self::DEFAULT_REQUEST;
+
             self::$config = new ConfigDTO(
                 url: $config[self::URL_KEY] ?? self::DEFAULT_URL,
                 quantity: $config[self::QUANTITY_KEY] ?? self::DEFAULT_QUANTITY_OF_REQUESTS,
-                request: $config[self::REQUEST_KEY] ?? self::DEFAULT_REQUEST,
+                request: $requestJson,
             );
         }
 

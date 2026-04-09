@@ -42,6 +42,6 @@ class Database
     public static function getCapsule(): Capsule
     {
         return self::$capsuleManager
-            ?? throw new Exception('Database is not connected. Use Database::connect() method.');
+            ?? throw new Exception('Database is not connected. Use Database::connect() method');
     }
 }
