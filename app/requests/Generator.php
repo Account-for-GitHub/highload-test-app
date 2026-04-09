@@ -13,7 +13,7 @@ class Generator
         while ($count < $config->quantity) {
             $status = exec("php scenario_script.php --request_id=$requestId > /dev/null 2>&1 &");
             if ($status === false) {
-                Logger::log('app.log', 'Some error with shell command execution.');
+                Logger::log('/logs/app.log', 'Some error with shell command execution.');
             }
             ++$count;
         }

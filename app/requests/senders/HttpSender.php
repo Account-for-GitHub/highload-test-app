@@ -4,11 +4,12 @@ namespace app\requests\senders;
 
 use app\dto\ConfigDTO;
 use app\dto\ResponseDTO;
+use app\helpers\Helpers;
 use app\helpers\Logger;
 
 class HttpSender implements ISender
 {
-    public static function send(ConfigDTO $config, string $json_data): ResponseDTO|false
+    public static function send(ConfigDTO $config, string $jsonData): ResponseDTO|false
     {
         $curl = curl_init();
         curl_setopt_array($curl,
@@ -18,11 +19,11 @@ class HttpSender implements ISender
                 CURLOPT_SSL_VERIFYPEER => false,
                 CURLOPT_HTTPHEADER => [
                     'Content-Type: application/json',
-                    'Content-Length: ' . strlen($json_data)
+                    'Content-Length: ' . strlen($jsonData)
                 ],
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_POST => true,
-                CURLOPT_POSTFIELDS => $json_data,
+                CURLOPT_POSTFIELDS => $jsonData,
             ]
         );
         $response = curl_exec($curl);
@@ -31,19 +32,19 @@ class HttpSender implements ISender
 
         if ($response === false) {
             $error = curl_error($curl);
-            Logger::log('error.log', 'status: ' . $status . ' : ' . $error);
+            Logger::log('/logs/error.log', 'status: ' . $status . ' : ' . $error);
             
             return false;
         }
 
         Logger::log(
-            'response.log', 
-            "status: $status : " . substr($response, 0, 100) . '...'
+            '/logs/response.log',
+            "status: $status : " . Helpers::getFirst($response, 100)
         );
 
         return new ResponseDTO(
             status: $status,
-            responseJson: $response,
+            response: $response,
         );
     }
 }

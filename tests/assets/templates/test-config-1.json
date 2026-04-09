@@ -1,5 +1,5 @@
 {
-  "url": "http://localhost",
+  "url": "http://localhost:80",
   "quantity": 3,
   "request": {
     "key_1": "value 1",
