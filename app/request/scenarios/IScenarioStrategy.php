@@ -1,6 +1,6 @@
 <?php
 
-namespace app\requests\scenarios;
+namespace app\request\scenarios;
 
 use app\dto\ResponseDTO;
 

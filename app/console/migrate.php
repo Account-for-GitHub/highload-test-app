@@ -18,4 +18,4 @@ if (!$repository->repositoryExists()) {
 $migrator = new Migrator($repository, $capsule->getDatabaseManager(), new Filesystem());
 $migrator->run(__DIR__ . '/../migrations');
 
-//$migrator->rollback(__DIR__ . '/../migrations');
+// $migrator->rollback(__DIR__ . '/../migrations');

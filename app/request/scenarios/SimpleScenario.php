@@ -1,10 +1,10 @@
 <?php
 
-namespace app\requests\scenarios;
+namespace app\request\scenarios;
 
 use app\config\Config;
 use app\dto\ResponseDTO;
-use app\requests\senders\HttpSender;
+use app\request\senders\HttpSender;
 
 class SimpleScenario implements IScenarioStrategy
 {

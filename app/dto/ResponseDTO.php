@@ -6,7 +6,7 @@ class ResponseDTO
 {
     public function __construct(
         public int    $status,
-        public string $responseJson,
+        public string $response,
     )
     {
     }

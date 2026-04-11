@@ -4,11 +4,13 @@ namespace app;
 
 use app\config\Config;
 use app\models\Request;
-use app\requests\Generator;
+use app\output\formats\AggregateFormat;
+use app\output\Output;
+use app\request\Generator;
 
 class Application
 {
-    public function run(): void
+    public static function run(): void
     {
         $config = Config::getConfig();
 
@@ -19,5 +21,7 @@ class Application
         ])->id;
 
         Generator::run($config, $requestId);
+
+        (new Output(new AggregateFormat()))->output();
     }
 }
