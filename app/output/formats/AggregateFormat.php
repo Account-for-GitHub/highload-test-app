@@ -1,6 +1,6 @@
 <?php
 
-namespace app\output\format;
+namespace app\output\formats;
 
 use app\models\Request;
 use app\models\Response;
@@ -31,8 +31,8 @@ class AggregateFormat extends IFormatStrategy
 
         foreach ($responses as $r) {
             /** @var Response $r */
-            echo "HTTP-Status: $r->status;\n";
-            echo "Number of responses: " . $r->responses_count . ";\n\n";
+            echo "Group of responses with HTTP-Status: $r->status;\n";
+            echo "Number of responses in group: " . $r->responses_count . ";\n\n";
         }
     }
 }

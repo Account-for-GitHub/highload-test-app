@@ -1,6 +1,6 @@
 <?php
 
-namespace app\output\format;
+namespace app\output\formats;
 
 use app\helpers\Helpers;
 

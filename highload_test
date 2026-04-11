@@ -7,4 +7,4 @@ use app\database\Database;
 use app\Application;
 
 Database::connect();
-(new Application())->run();
+Application::run();
