@@ -2,8 +2,8 @@
 
 namespace app\output;
 
-use app\output\format\IFormatStrategy;
-use app\output\format\SimpleFormat;
+use app\output\formats\IFormatStrategy;
+use app\output\formats\SimpleFormat;
 
 class Output
 {

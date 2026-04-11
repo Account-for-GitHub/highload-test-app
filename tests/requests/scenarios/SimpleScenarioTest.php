@@ -4,7 +4,7 @@ namespace requests\scenarios;
 
 use app\config\Config;
 use app\dto\ResponseDTO;
-use app\requests\scenarios\SimpleScenario;
+use app\request\scenarios\SimpleScenario;
 use PHPUnit\Framework\TestCase;
 
 class SimpleScenarioTest extends TestCase

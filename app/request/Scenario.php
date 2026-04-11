@@ -1,10 +1,11 @@
 <?php
 
-namespace app\requests;
+namespace app\request;
 
 use app\models\Response;
-use app\requests\scenarios\IScenarioStrategy;
-use app\requests\scenarios\SimpleScenario;
+use app\request\scenarios\IScenarioStrategy;
+use app\request\scenarios\SimpleScenario;
+use Exception;
 
 class Scenario
 {
@@ -12,10 +13,13 @@ class Scenario
     {
     }
 
+    /**
+     * @throws Exception
+     */
     protected function getRequestId(): int
     {
         $options = getopt('', ['request_id:']);
-        return $options['request_id'];
+        return $options['request_id'] ?? throw new Exception('--request_id option is required');
     }
 
     public function execute(): void

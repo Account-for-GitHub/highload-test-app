@@ -1,6 +1,6 @@
 <?php
 
-namespace app\requests\senders;
+namespace app\request\senders;
 
 use app\dto\ConfigDTO;
 use app\dto\ResponseDTO;

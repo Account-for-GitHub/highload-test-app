@@ -4,7 +4,7 @@ namespace requests\senders;
 
 use app\config\Config;
 use app\dto\ResponseDTO;
-use app\requests\senders\HttpSender;
+use app\request\senders\HttpSender;
 use PHPUnit\Framework\TestCase;
 
 class HttpSenderTest extends TestCase
