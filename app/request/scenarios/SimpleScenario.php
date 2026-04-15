@@ -11,8 +11,7 @@ class SimpleScenario implements IScenarioStrategy
     function execute(): ResponseDTO|false
     {
         $config = Config::getConfig();
-        $json_data = json_encode($config->request);
-        
-        return HttpSender::send($config, $json_data);
+
+        return HttpSender::send($config);
     }
 }
