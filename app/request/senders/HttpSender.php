@@ -9,8 +9,10 @@ use app\helpers\Logger;
 
 class HttpSender implements ISender
 {
-    public static function send(ConfigDTO $config, string $jsonData): ResponseDTO|false
+    public static function send(ConfigDTO $config): ResponseDTO|false
     {
+        $jsonData = $config->request;
+
         $curl = curl_init();
         curl_setopt_array($curl,
             [

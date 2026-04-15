@@ -6,5 +6,5 @@ use app\dto\ConfigDTO;
 
 interface ISender
 {
-    public static function send(ConfigDTO $config, string $jsonData);
+    public static function send(ConfigDTO $config);
 }
