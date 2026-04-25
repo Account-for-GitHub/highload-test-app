@@ -3,9 +3,10 @@
 namespace app;
 
 use app\config\Config;
+use app\helpers\Helpers;
 use app\models\Request;
 use app\output\formats\AggregateFormat;
-use app\output\Output;
+use app\output\OutputProvider;
 use app\request\Generator;
 
 class Application
@@ -22,6 +23,8 @@ class Application
 
         Generator::run($config, $requestId);
 
-        (new Output(new AggregateFormat()))->output();
+        $output = (new OutputProvider(new AggregateFormat()))->getOutput();
+
+        Helpers::output($output);
     }
 }

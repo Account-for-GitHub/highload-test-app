@@ -7,15 +7,15 @@ use app\models\Response;
 
 class AggregateFormat extends IFormatStrategy
 {
-    function output(): void
+    function getOutput(): string
     {
         /** @var Request $request */
         $request = Request::with('responses')
             ->latest()
             ->first();
 
-        echo "\nRequest URL: " . $request->url . "; Quantity: " . $request->quantity
-            . "; Request JSON: " . $request->request_json . ";\n";
+        $this->addString("\nRequest URL: " . $request->url . "; Quantity: " . $request->quantity
+            . "; Request JSON: " . $request->request_json . ";\n");
 
         $allResponsesCount = $request
             ->responses()
@@ -27,12 +27,14 @@ class AggregateFormat extends IFormatStrategy
             ->groupBy('status')
             ->get();
 
-        echo "\nTotal number of responses: $allResponsesCount;\n\n";
+        $this->addString("\nTotal number of responses: $allResponsesCount;\n\n");
 
         foreach ($responses as $r) {
             /** @var Response $r */
-            echo "Group of responses with HTTP-Status: $r->status;\n";
-            echo "Number of responses in group: " . $r->responses_count . ";\n\n";
+            $this->addString("Group of responses with HTTP-Status: $r->status;\n"
+            . "Number of responses in group: " . $r->responses_count . ";\n\n");
         }
+
+        return $this->getString();
     }
 }

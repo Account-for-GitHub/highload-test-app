@@ -25,4 +25,9 @@ class Helpers
             }
         }
     }
+
+    public static function output(string $string): void
+    {
+        echo $string . "\n";
+    }
 }

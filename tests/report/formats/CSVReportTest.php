@@ -18,6 +18,8 @@ class CSVReportTest extends TestCase
 
     public function testFormatName()
     {
-        $this->assertEquals(IReportFormatStrategy::CSV_NAME, CSVReport::formatName());
+        $reportObject = new CSVReport();
+
+        $this->assertEquals(IReportFormatStrategy::CSV_NAME, $reportObject->formatName());
     }
 }
