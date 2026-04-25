@@ -2,6 +2,7 @@
 
 namespace app\report\formats;
 
+use app\helpers\Helpers;
 use app\models\Request;
 
 abstract class IReportFormatStrategy
@@ -11,7 +12,7 @@ abstract class IReportFormatStrategy
     public const HTML = 2;
     public const HTML_NAME = 'html';
 
-    abstract public static function formatName(): string;
+    abstract public function formatName(): string;
 
     abstract public function format(): int;
 
@@ -21,13 +22,13 @@ abstract class IReportFormatStrategy
     {
         $unprocessedRequests = Request::whereDoesntHave('reports', function ($query) {
             $query->where('format', $this->format());
-        })->get();
+        });
 
-        if($unprocessedRequests->isEmpty()) {
-            echo "All reports generated\n";
+        if($unprocessedRequests->count() === 0) {
+            Helpers::output("All {$this->formatName()} reports are already generated!");
         }
 
-        foreach ($unprocessedRequests as $request) {
+        foreach ($unprocessedRequests->get() as $request) {
             $this->makeReport($request);
         }
     }

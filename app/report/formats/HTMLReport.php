@@ -12,7 +12,7 @@ class HTMLReport extends IReportFormatStrategy
 
     const HTML_REPORTS_DIR = __DIR__ . '/../../../reports/html/';
 
-    public static function formatName(): string
+    public function formatName(): string
     {
         return IReportFormatStrategy::HTML_NAME;
     }
@@ -25,7 +25,6 @@ class HTMLReport extends IReportFormatStrategy
     protected function makeReport(Request $request): void
     {
         $description = $this->makeDescription($request);
-        echo "$description\n";
 
         $header = $this->makeHeader($description);
 
@@ -89,6 +88,8 @@ class HTMLReport extends IReportFormatStrategy
     protected function createReportFile(int $requestId, string $report)
     {
         $filename = date('Y-m-d-H-i-s') . "-request-$requestId-report.html";
+
+        Helpers::output($filename);
 
         file_put_contents(
             self::HTML_REPORTS_DIR . $filename,

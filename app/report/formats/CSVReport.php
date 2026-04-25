@@ -12,7 +12,7 @@ class CSVReport extends IReportFormatStrategy
 
     const CSV_REPORTS_DIR = __DIR__ . '/../../../reports/csv/';
 
-    public static function formatName(): string
+    public function formatName(): string
     {
         return IReportFormatStrategy::CSV_NAME;
     }
@@ -26,8 +26,6 @@ class CSVReport extends IReportFormatStrategy
     {
         $header = $this->makeHeader($request);
 
-        echo $header;
-
         $report = $header;
 
         $responses = $request
@@ -40,11 +38,7 @@ class CSVReport extends IReportFormatStrategy
                 . urlencode(Helpers::getFirst($response->response, 50)) . "\n";
 
             $report .= $responseCsvLine;
-
-            echo $responseCsvLine;
         }
-
-        echo "\n";
 
         $this->saveToDatabase($request->id, $report);
         $this->createReportFile($request->id, $report);
@@ -67,6 +61,8 @@ class CSVReport extends IReportFormatStrategy
     protected function createReportFile(int $requestId, string $report)
     {
         $filename = date('Y-m-d-H-i-s') . "-request-$requestId-report.csv";
+
+        Helpers::output($filename);
 
         file_put_contents(
             self::CSV_REPORTS_DIR . $filename,

@@ -18,7 +18,9 @@ class HTMLReportTest extends TestCase
 
     public function testFormatName()
     {
-        $this->assertEquals(IReportFormatStrategy::HTML_NAME, HTMLReport::formatName());
+        $reportObject = new HTMLReport();
+
+        $this->assertEquals(IReportFormatStrategy::HTML_NAME, $reportObject->formatName());
     }
 
     public function testMakeHeader()
@@ -30,7 +32,7 @@ class HTMLReportTest extends TestCase
 
     public function testGenerateHtmlReport()
     {
-        $requestId = 123;
+        $requestId = 1;
         $content = "<h1>Some HTML content</h1>";
         $template = <<<HEREDOC
             <!DOCTYPE html>

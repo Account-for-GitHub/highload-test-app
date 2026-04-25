@@ -12,7 +12,7 @@ Database::connect();
 
 $formatOption = getopt('', ['format:']);
 
-$reportsFormatName = $formatOption['format'] ?? CSVReport::formatName();
+$reportsFormatName = $formatOption['format'] ?? IReportFormatStrategy::CSV_NAME;
 
 $formatObject = match ($reportsFormatName) {
     IReportFormatStrategy::HTML_NAME => new HTMLReport(),
